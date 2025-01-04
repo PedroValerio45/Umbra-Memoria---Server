@@ -3,13 +3,53 @@ const router = express.Router();
 const connection = require('./database');
 // const cors = require('cors');
 
-// endpoint to find which shards have already been collected by a certain player (UNITY) OR when you stop interacting with a shard (UNITY)
-router.get("/checkShardsOnEnterCatacombs", (req, res) =>{
-    console.log("shardsEnter query:", req.query); // Log the entire request query
+// endpoint to login in the app
+router.get("/appLogin", (req, res) =>{
+    console.log("app login query:", req.query); // Log the entire request query
     const id = req.query.generatedID;
-    console.log("shardsEnter ID: ", id);
+    console.log("app login ID: ", id);
 
-    connection.query('SELECT shard_number FROM shards_collected INNER JOIN unity_users ON shard_user = unity_users.unity_user_id WHERE shards_collected.is_shard_collected = 1 AND unity_users.unity_user_id= ?',
+    connection.query('SELECT * FROM unity_users WHERE unity_user_id = ?',
+        [id],
+
+        (err, results) => {
+        if (err) {
+            console.error('Error querying the database:', err);
+            return res.status(500).send({ error: 'Catacombs entry select query failed' });
+        }
+
+        console.log (results);
+        res.send({ results });
+    });
+});
+
+// endpoint to check if player found a shard in-game
+router.get("/waitForShard", (req, res) =>{
+    console.log("wait for shard query:", req.query); // Log the entire request query
+    const id = req.query.generatedID;
+    console.log("wait for shard ID: ", id);
+
+    connection.query('SELECT shard_number FROM shards_collected WHERE shard_user = ? AND is_shard_found = 1 AND is_shard_collected = 0',
+        [id],
+
+        (err, results) => {
+        if (err) {
+            console.error('Error querying the database:', err);
+            return res.status(500).send({ error: 'Catacombs entry select query failed' });
+        }
+
+        console.log (results);
+        res.send({ results });
+    });
+});
+
+// endpoint to unlock a shard
+router.put("/unlockShard", (req, res) =>{
+    console.log("unlock shard query:", req.query); // Log the entire request query
+    const id = req.query.generatedID;
+    console.log("unlock shard ID: ", id);
+
+    connection.query('UPDATE shards_collected SET is_shard_collected = 1 WHERE is_shard_found = 1 AND shard_user = ?',
         [id],
 
         (err, results) => {
