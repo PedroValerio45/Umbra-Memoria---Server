@@ -1,12 +1,12 @@
 const express = require('express');
 const connection = require('./API/database'); // Import the database connection
-const cors = require('cors');
+// const cors = require('cors');
 const catacombs = require('./API/catacombs');
 
 const app = express();
 const port = 3000;
 
-app.use(cors());  // Allows all origins, for testing purposes
+// app.use(cors());  // Allows all origins, for testing purposes
 app.use(express.json()); // Middleware to parse JSON bodies
 
 // Routes

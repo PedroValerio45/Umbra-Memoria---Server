@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('./database');
-const cors = require('cors');
+// const cors = require('cors');
 
 // endpoint to find which shards have already been collected by a certain player (UNITY) OR when you stop interacting with a shard (UNITY)
 router.get("/checkShardsOnEnterCatacombs", (req, res) =>{
