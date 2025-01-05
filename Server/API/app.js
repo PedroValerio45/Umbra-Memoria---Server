@@ -4,7 +4,7 @@ const connection = require('./database');
 // const cors = require('cors');
 
 // endpoint to login in the app
-router.get("/appLogin", (req, res) =>{
+router.post("/appLogin", (req, res) =>{
     console.log("app login body:", req.body);
     const id = req.body.generatedID;
     console.log("app login ID: ", id);
