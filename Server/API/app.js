@@ -15,16 +15,16 @@ router.post("/appLogin", (req, res) => {
             console.error('Error querying the database:', err);
             return res.status(500).send({ error: 'App login query failed' });
         }
-
+    
         console.log(results);
-
+    
         // Check if there are any results
         if (results.length === 0) {
-            // return res.status(404).send({ error: 'No user found with the provided ID' });
-            res.send({ results });
+            // Return an empty array (or just return results as an empty array)
+            res.send({ results: [] });
         } else {
-            // res.send({ result: results[0].unity_user_id });
-            res.send({ result: results.unity_user_id });
+            // Send the unity_user_id of the first result
+            res.send({ result: results[0].unity_user_id });
         }
     });
 });
