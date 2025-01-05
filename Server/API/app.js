@@ -62,3 +62,5 @@ router.put("/unlockShard", (req, res) =>{
         res.send({ results });
     });
 });
+
+module.exports = router;
