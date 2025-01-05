@@ -4,27 +4,35 @@ const connection = require('./database');
 // const cors = require('cors');
 
 // endpoint to login in the app
-router.post("/appLogin", (req, res) =>{
+router.post("/appLogin", (req, res) => {
     console.log("app login body:", req.query);
     const id = req.query.generatedID;
     console.log("app login ID: ", id);
 
     connection.query('SELECT * FROM unity_users WHERE unity_user_id = ?',
-        [id],
-
-        (err, results) => {
+        [id], (err, results) => {
         if (err) {
             console.error('Error querying the database:', err);
-            return res.status(500).send({ error: 'Catacombs entry select query failed' });
+            return res.status(500).send({ error: 'App login query failed' });
         }
 
+        /* console.log(results);
+
+        // Check if there are any results
+        if (results.length === 0) {
+            return res.status(404).send({ error: 'No user found with the provided ID' });
+        }
+
+        // If results exist, send the first user's ID
+        res.send({ result: results[0].unity_user_id }); */
+
         console.log (results);
-        res.send({result: results[0].unity_user_id});
+        res.send({ results });
     });
 });
 
 // endpoint to check if player found a shard in-game
-router.get("/waitForShard", (req, res) =>{
+router.post("/waitForShard", (req, res) =>{
     console.log("wait for shard query:", req.query); // Log the entire request query
     const id = req.query.generatedID;
     console.log("wait for shard ID: ", id);
@@ -35,7 +43,7 @@ router.get("/waitForShard", (req, res) =>{
         (err, results) => {
         if (err) {
             console.error('Error querying the database:', err);
-            return res.status(500).send({ error: 'Catacombs entry select query failed' });
+            return res.status(500).send({ error: 'Wait for shard query failed' });
         }
 
         console.log (results);
@@ -55,7 +63,7 @@ router.put("/unlockShard", (req, res) =>{
         (err, results) => {
         if (err) {
             console.error('Error querying the database:', err);
-            return res.status(500).send({ error: 'Catacombs entry select query failed' });
+            return res.status(500).send({ error: 'Shard unlock select query failed' });
         }
 
         console.log (results);
