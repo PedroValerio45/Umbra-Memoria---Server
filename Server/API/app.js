@@ -4,9 +4,9 @@ const connection = require('./database');
 // const cors = require('cors');
 
 // endpoint to login in the app
-router.get("/appLogin", (req, res) =>{
-    console.log("app login query:", req.query); // Log the entire request query
-    const id = req.query.generatedID;
+router.post("/appLogin", (req, res) =>{
+    console.log("app login body:", req.body);
+    const id = req.body.generatedID;
     console.log("app login ID: ", id);
 
     connection.query('SELECT * FROM unity_users WHERE unity_user_id = ?',
