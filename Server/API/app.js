@@ -16,7 +16,7 @@ router.post("/appLogin", (req, res) => {
             return res.status(500).send({ error: 'App login query failed' });
         }
 
-        /* console.log(results);
+        console.log(results);
 
         // Check if there are any results
         if (results.length === 0) {
@@ -24,10 +24,7 @@ router.post("/appLogin", (req, res) => {
         }
 
         // If results exist, send the first user's ID
-        res.send({ result: results[0].unity_user_id }); */
-
-        console.log (results);
-        res.send({ results });
+        res.send({ result: results[0].unity_user_id });
     });
 });
 
