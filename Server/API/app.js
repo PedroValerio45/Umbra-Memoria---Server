@@ -20,11 +20,12 @@ router.post("/appLogin", (req, res) => {
 
         // Check if there are any results
         if (results.length === 0) {
-            return res.status(404).send({ error: 'No user found with the provided ID' });
+            // return res.status(404).send({ error: 'No user found with the provided ID' });
+            res.send({ results });
+        } else {
+            // res.send({ result: results[0].unity_user_id });
+            res.send({ result: results.unity_user_id });
         }
-
-        // If results exist, send the first user's ID
-        res.send({ result: results[0].unity_user_id });
     });
 });
 
