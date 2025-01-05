@@ -2,6 +2,7 @@ const express = require('express');
 const connection = require('./API/database'); // Import the database connection
 // const cors = require('cors');
 const catacombs = require('./API/catacombs');
+const memorydecoder = require('./API/app');
 
 const app = express();
 const port = 3000;
@@ -11,6 +12,7 @@ app.use(express.json()); // Middleware to parse JSON bodies
 
 // Routes
 app.use('/catacombs', catacombs); // Everytime a client requests some that begins with /catacombs, it will be foward to catacombs.js
+app.use('/app', memorydecoder);
 
 // Endpoint to check if an ID exists (UNITY)
 app.get('/checkID', (req, res) => {

@@ -19,7 +19,7 @@ router.post("/appLogin", (req, res) =>{
         }
 
         console.log (results);
-        res.send({ results });
+        res.send({result: results[0].unity_user_id});
     });
 });
 
