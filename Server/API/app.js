@@ -5,8 +5,8 @@ const connection = require('./database');
 
 // endpoint to login in the app
 router.post("/appLogin", (req, res) =>{
-    console.log("app login body:", req.body);
-    const id = req.body.generatedID;
+    console.log("app login body:", req.query);
+    const id = req.query.generatedID;
     console.log("app login ID: ", id);
 
     connection.query('SELECT * FROM unity_users WHERE unity_user_id = ?',
